@@ -1,0 +1,219 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 700,
+  "title": "Mauritius: Tourist Arrival By Gender, 2019",
+  "data": {
+    "url": "Tourist-Arrival-2019-Gender.csv"
+  },
+  "params": [
+    {
+      "name": "Country_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Australia",
+          "Austria",
+          "Belgium",
+          "China",
+          "Czech Republic",
+          "France",
+          "Germany",
+          "India",
+          "Italy",
+          "Madagascar",
+          "Netherlands",
+          "Other countries",
+          "Reunion Island",
+          "Russia",
+          "Seychelles",
+          "South Africa",
+          "Spain",
+          "Sweden",
+          "Switzerland",
+          "UAE",
+          "UK",
+          "USA"
+        ],
+        "labels": [
+          "Show All",
+          "Australia",
+          "Austria",
+          "Belgium",
+          "China",
+          "Czech Republic",
+          "France",
+          "Germany",
+          "India",
+          "Italy",
+          "Madagascar",
+          "Netherlands",
+          "Other countries",
+          "Reunion Island",
+          "Russia",
+          "Seychelles",
+          "South Africa",
+          "Spain",
+          "Sweden",
+          "Switzerland",
+          "UAE",
+          "UK",
+          "USA"
+        ],
+        "name": "Country Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "Country_selection == null || datum.Country == Country_selection"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Male",
+      "type": "quantitative",
+      "axis": {
+        "tickCount": 7
+      },
+      "scale": {
+        "type": "log",
+        "domain": [
+          3000,
+          200000
+        ]
+      }
+    },
+    "y": {
+      "field": "Female",
+      "type": "quantitative",
+      "axis": {
+        "tickCount": 7
+      },
+      "scale": {
+        "type": "log",
+        "domain": [
+          3000,
+          200000
+        ]
+      }
+    }
+  },
+  "layer": [
+    {
+      "selection": {
+        "continent_highlight": {
+          "type": "multi",
+          "fields": [
+            "Continent"
+          ],
+          "bind": "legend"
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "size": 500
+      },
+      "encoding": {
+        "x": {
+          "field": "Male",
+          "type": "quantitative",
+          "title": "Male Tourist Arrival"
+        },
+        "y": {
+          "field": "Female",
+          "type": "quantitative",
+          "title": "Female Tourist Arrival"
+        },
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "North America",
+              "Europe",
+              "Africa",
+              "Asia",
+              "Oceania"
+            ],
+            "range": [
+              "#e41a1c",
+              "#984ea3",
+              "#ff7f00",
+              "#a6cee3",
+              "#377eb8",
+              "#a65628"
+            ]
+          }
+        },
+        "opacity": {
+          "condition": {
+            "selection": "continent_highlight",
+            "value": 1
+          },
+          "value": 0.2
+        },
+        "tooltip": [
+          {
+            "field": "Country",
+            "type": "nominal"
+          },
+          {
+            "field": "Male",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Female",
+            "type": "quantitative",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -12,
+        "fontSize": 12,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "text": {
+          "field": "Country",
+          "type": "nominal"
+        },
+        "color": {
+          "value": "black"
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum['Country'] == 'France' || datum['Country'] == 'USA' || datum['Country'] == 'India'",
+            "value": 1
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {
+            "field": "Country",
+            "type": "nominal"
+          },
+          {
+            "field": "Male",
+            "type": "quantitative",
+            "format": ","
+          },
+          {
+            "field": "Female",
+            "type": "quantitative",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+  "config": {}
+}
