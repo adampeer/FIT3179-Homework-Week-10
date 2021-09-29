@@ -15,7 +15,7 @@
         "min": 2018,
         "max": 2020,
         "step": 1,
-        "name": "Year(s) Selection: "
+        "name": "Timeline: "
       }
     }
   ],
