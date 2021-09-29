@@ -1,0 +1,141 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 700,
+  "title": "Mauritius: Covid-19 Impact on Tourist Arrival, 2020",
+  "data": {
+    "url": "Tourism-Covid-Effect-2020.csv"
+  },
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 2020,
+      "bind": {
+        "input": "range",
+        "min": 2018,
+        "max": 2020,
+        "step": 1,
+        "name": "Year(s) Selection: "
+      }
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "axis": {
+        "tickCount": 36,
+        "labelAlign": "left",
+        "labelExpr": "[timeFormat(datum.value, '%b'), timeFormat(datum.value, '%m') == '01' ? timeFormat(datum.value, '%Y') : '']",
+        "labelOffset": 4,
+        "labelPadding": -24,
+        "tickSize": 30,
+        "gridDash": {
+          "condition": {
+            "test": {
+              "field": "value",
+              "timeUnit": "month",
+              "equal": 1
+            },
+            "value": []
+          },
+          "value": [
+            2,
+            2
+          ]
+        },
+        "tickDash": {
+          "condition": {
+            "test": {
+              "field": "value",
+              "timeUnit": "month",
+              "equal": 1
+            },
+            "value": []
+          },
+          "value": [
+            2,
+            2
+          ]
+        }
+      }
+    },
+    "y": {
+      "field": "Number",
+      "title": "Number of tourist arrival",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "Date",
+        "type": "temporal"
+      },
+      {
+        "field": "Number",
+        "type": "quantitative",
+        "title": "Number of tourist arrival",
+        "format": ","
+      }
+    ]
+  },
+  "transform": [
+    {
+      "filter": "year(datum.Date) <= Year_selection"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "line"
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 3
+      },
+      "encoding": {
+        "text": {
+          "field": "Date",
+          "type": "temporal",
+          "condition": {
+            "test": "dayofyear(datum.Date) == '61'",
+            "value": "Mar, 20: Covid-19 restrictions applied"
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "dayofyear(datum.Date) == '61'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 3
+      },
+      "encoding": {
+        "text": {
+          "field": "Date",
+          "type": "temporal",
+          "condition": {
+            "test": "dayofyear(datum.Date) == '1' && year(datum.Date) == '2020'",
+            "value": "Jan, 30: Covid-19 declared Public Health Emergency of International Concern"
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "dayofyear(datum.Date) == '1' && year(datum.Date) == '2020'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ]
+}
