@@ -92,7 +92,7 @@
         "type": "text",
         "align": "left",
         "baseline": "middle",
-        "dx": 3
+        "dx": 10
       },
       "encoding": {
         "text": {
@@ -100,7 +100,10 @@
           "type": "temporal",
           "condition": {
             "test": "dayofyear(datum.Date) == '61'",
-            "value": "Mar, 20: Covid-19 restrictions applied"
+            "value": [
+              "20th March 2020: Covid-19 restrictions",
+              "applied in Mauritius. Borders were closed"
+            ]
           }
         },
         "opacity": {
@@ -117,7 +120,7 @@
         "type": "text",
         "align": "left",
         "baseline": "middle",
-        "dx": 3
+        "dx": 10
       },
       "encoding": {
         "text": {
@@ -125,7 +128,10 @@
           "type": "temporal",
           "condition": {
             "test": "dayofyear(datum.Date) == '1' && year(datum.Date) == '2020'",
-            "value": "Jan, 30: Covid-19 declared Public Health Emergency of International Concern"
+            "value": [
+              "30th Jan 2020: Covid-19 declared Public Health",
+              "Emergency of International Concern"
+            ]
           }
         },
         "opacity": {
